@@ -1,8 +1,12 @@
+import Landing from "@pages/Landing";
 import React from "react";
+import { Route, Routes } from "react-router";
 
 const App = () => {
     return (
-        <div>ㅎㅇ요</div>
+        <Routes>
+            <Route path="/" element={<Landing />}></Route>
+        </Routes>
     )
 }
 

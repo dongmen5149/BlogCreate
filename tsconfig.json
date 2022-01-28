@@ -15,22 +15,22 @@
         "baseUrl": ".",
         "paths": {
             "@hooks/*": [
-                "hooks/*"
+                "client/hooks/*"
             ],
             "@components/*": [
-                "components/*"
+                "client/components/*"
             ],
             "@layouts/*": [
-                "layouts/*"
+                "client/layouts/*"
             ],
             "@pages/*": [
-                "pages/*"
+                "client/pages/*"
             ],
             "@utils/*": [
-                "utils/*"
+                "client/utils/*"
             ],
             "@typings/*": [
-                "typings/*"
+                "client/typings/*"
             ]
         }
     }

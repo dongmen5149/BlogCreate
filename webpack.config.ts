@@ -18,12 +18,12 @@ const config: webpack.Configuration = {
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'], //바벨이 처리할 확장자 목록
         alias: {
-            '@hooks': path.resolve(__dirname, 'hooks'), // .../.../.../ 을 @src/fasdasda 로도 가능하게
-            '@components': path.resolve(__dirname, 'components'),
-            '@layouts': path.resolve(__dirname, 'layouts'),
-            '@pages': path.resolve(__dirname, 'pages'),
-            '@utils': path.resolve(__dirname, 'utils'),
-            '@typings': path.resolve(__dirname, 'typings'),
+            '@hooks': path.resolve(__dirname, 'client/hooks'), // .../.../.../ 을 @src/fasdasda 로도 가능하게
+            '@components': path.resolve(__dirname, 'client/components'),
+            '@layouts': path.resolve(__dirname, 'client/layouts'),
+            '@pages': path.resolve(__dirname, 'client/pages'),
+            '@utils': path.resolve(__dirname, 'client/utils'),
+            '@typings': path.resolve(__dirname, 'client/typings'),
         },
     },
     entry: {
