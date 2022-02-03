@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Title = styled.header`
+export const Title = styled.input`
     width: 500px;
     height: 40px;
     margin: 10px;
@@ -18,13 +18,12 @@ export const Container = styled.div`
 `;
 
 export const Form = styled.div`
-    width: 80%;
+    width: 50%;
     margin: 0 auto;
     text-align: center;
 `
 
-
-export const Text = styled.div`
+export const Text = styled.input`
     width: 80%;
     min-height: 500px;
 `
