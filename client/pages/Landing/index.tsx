@@ -1,31 +1,60 @@
-import React from "react";
+import React, { FC } from "react";
 import { useCallback, useState } from 'react'
 import { Button, Container, Form, Text, Title } from "./styels";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import './editor.css'
+import axios from "axios";
+import useSWR from "swr";
+import fetcher from "@utils/fetcher";
 
+const Landing: React.FC<{ history: any }> = (props) => {
+    const user = useSWR('/api/users', fetcher, {
+        dedupingInterval: 2000 //2초
+    });
 
-const Landing = () => {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
-    const [viewtitle, setViewtitle] = useState([]);
-    const [viewContent, setViewContent] = useState([]);
+    const [viewtitle, setViewTitle] = useState('')
+    const [viewcontent, setViewContent] = useState('')
 
     const getTitle = useCallback((e) => {
         setTitle(e.target.value)
     }, []);
 
-    const onsubmit = useCallback(() => {
-        setViewContent(viewContent.concat());
-    }, []);
+    const onSubmit = useCallback(
+        (e) => {
+            e.preventDefault();
+            if (!title && content) {
+                axios
+                    .post('/api/contents', {
+                        writer: user.data.id,
+                        title,
+                        content,
+                    })
+                    .then((response) => {
+                        alert('video Uploaded Successfully')
+                        setTimeout(() => {
+                            props.history.push('/')
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        console.log(error.response);
+                    })
+                    .finally(() => { });
+            }
+        },
+        [title, content],
+    );
+
 
 
     return (
         <div>
             <h1>Review</h1>
             <Container>
-                <h2>제목</h2>
-                <div>내용</div>
+                <h2>{ }</h2>
+                <div>{ }</div>
             </Container>
             <Form>
                 <Title type='text' placeholder="제목" onChange={getTitle} />
@@ -48,9 +77,8 @@ const Landing = () => {
                     }}
                 />
 
-
             </Form>
-            <Button onClick={onsubmit}>입력
+            <Button onClick={onSubmit}>입력
             </Button>
         </div>
     )
