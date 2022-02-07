@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useCallback, useState } from 'react'
-import { Button, Container, Form, Text, Title } from "./styels";
+import { Button, Container, Form, Header, Text, Title } from "./styels";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import './editor.css'
@@ -9,18 +9,23 @@ import fetcher from "@utils/fetcher";
 import useSWR, { mutate } from "swr";
 import { toast } from "react-toastify";
 import useInput from "@hooks/useInput";
-import { IUser, IWorkspace } from "@typings/db";
+import { IUser } from "@typings/db";
 import { Navigate } from "react-router";
+import HTMLReactParser from "html-react-parser";
+import 'antd/dist/antd.css';
+import LeftMenu from "@layouts/Navbar/LeftMenu";
 
 const Workspace = () => {
     const user = useSWR('/api/users', fetcher, {
         dedupingInterval: 2000 //2초
     });
 
+    const [menubar, setMenubar] = useState(false);
     const [title, setTitle] = useInput('')
     const [content, setContent] = useState('')
-    const [viewTitle, setViewTitle] = useInput('')
-    const [viewContent, setViewContent] = useState('')
+    const [data, setData] = useState([])
+    const [viewTitle, setViewTitle] = useState([])
+    const [viewContent, setViewContent] = useState([])
 
     const { data: userData, error, mutate } = useSWR<IUser | false>('/api/users', fetcher, {
         dedupingInterval: 2000, // 2초
@@ -68,16 +73,16 @@ const Workspace = () => {
 
     useEffect(() => {
         axios.get('/api/workspaces')
-            .then(response => {
-                if (response.data.success) {
-                    console.log(response.data)
-                    setViewTitle(response.data.title)
-                    setViewContent(response.data.content)
-                } else {
-                    alert('Failed to get Reivew')
-                }
+            .then((response) => {
+                setData(response.data);
             })
-    }, [])
+    }, []);
+
+    const onCollapse = useCallback((menubar: boolean) => {
+        setMenubar(menubar)
+    }, []);
+
+
 
 
     if (!userData) {
@@ -87,10 +92,11 @@ const Workspace = () => {
 
     return (
         <div>
-            <h1>Review</h1>
+            <Header></Header>
+            <LeftMenu></LeftMenu>
             <Container>
-                <h2>{viewTitle}</h2>
-                <div>{viewContent}</div>
+                <h2>{data.map((v: any) => v.title)}</h2>
+                <div>{HTMLReactParser(`${data.map((v: any) => v.content)}`)}</div>
             </Container>
             <Form>
                 <Title type='text' placeholder="제목" value={title} onChange={setTitle} />
