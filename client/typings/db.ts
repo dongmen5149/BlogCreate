@@ -1,10 +1,13 @@
 export interface IUser {
-    name: string;
+    id: number;
+    nickname: string;
     email: string;
+    Workspaces: IWorkspace[];
 }
 
-export interface ReView {
+export interface IWorkspace {
+    id: number;
     title: string;
     content: string;
+    OwnerId: number; // 작성자 ID
 }
-

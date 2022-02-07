@@ -86,7 +86,7 @@ const config: webpack.Configuration = {
         static: { directory: path.resolve(__dirname) },
         proxy: {
             '/api/': {
-                target: 'http://localhost:5000',
+                target: 'http://localhost:3095',
                 changeOrigin: true,
             },
         },

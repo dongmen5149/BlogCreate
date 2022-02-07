@@ -1,28 +1,26 @@
 const DataTypes = require("sequelize");
 const { Model } = DataTypes;
 
-module.exports = class User extends Model {
+module.exports = class Workspace extends Model {
   static init(sequelize) {
     return super.init(
       {
         // id가 기본적으로 들어있다.
-        email: {
-          type: DataTypes.STRING(30), // STRING, TEXT, BOOLEAN, INTEGER, FLOAT, DATETIME
+        title: {
+          type: DataTypes.STRING, // STRING, TEXT, BOOLEAN, INTEGER, FLOAT, DATETIME
           allowNull: false, // 필수
           unique: true, // 고유한 값
         },
-        nickname: {
-          type: DataTypes.STRING(30),
+        content: {
+          type: DataTypes.STRING, // STRING, TEXT, BOOLEAN, INTEGER, FLOAT, DATETIME
           allowNull: false, // 필수
-        },
-        password: {
-          type: DataTypes.STRING(100),
-          allowNull: false, // 필수
+          unique: true, // 고유한 값
         }
+
       },
       {
-        modelName: "User",
-        tableName: "users",
+        modelName: "Workspace",
+        tableName: "workspaces",
         paranoid: true,
         charset: "utf8",
         collate: "utf8_general_ci", // 한글 저장
@@ -31,10 +29,10 @@ module.exports = class User extends Model {
     );
   }
   static associate(db) {
-    db.User.hasMany(db.Workspace, { as: "Owned", foreignKey: "OwnerId" });
-    db.User.belongsToMany(db.Workspace, {
+    db.Workspace.belongsTo(db.User, { as: "Owner", foreignKey: "OwnerId" });
+    db.Workspace.belongsToMany(db.User, {
       through: db.WorkspaceMember,
-      as: "Workspaces",
+      as: "Members",
     });
   }
 };
