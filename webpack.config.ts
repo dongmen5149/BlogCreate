@@ -58,8 +58,8 @@ const config: webpack.Configuration = {
                 exclude: path.join(__dirname, 'node_modules'),
             },
             {
-                test: /\.css?$/,
-                use: ['style-loader', 'css-loader'], //babel이 loader로 css파일도 javascript로 변환해준다
+                test: /\.(css|scss)?$/,
+                use: ['style-loader', 'css-loader', 'sass-loader'], //babel이 loader로 css파일도 javascript로 변환해준다
             },
         ],
     },

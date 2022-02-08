@@ -1,0 +1,35 @@
+#container {
+    max-width: 120rem; // 최대 너비 1200px(이 범위를 넘어가면 여백)
+    min-height: 50rem; // 최소 높이 500px(이 범위가 안되면 스크롤)
+    margin: 8rem auto;
+    background-color: $color-grey-light-1;
+    box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+}
+
+#header {
+    height: 7rem;
+    background-color: #fff;
+    border-bottom: $color-grey-light-2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#content {
+    display: flex;
+}
+
+#sidebar {
+    flex: 0 0 18%;
+    background-color: $color-grey-dark-1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#mainpage {
+    flex: 1;
+    background-color: #fff;
+    background-color: orangered;
+    height: 80rem;
+}

@@ -1,0 +1,137 @@
+////////////////////////////////////////////////
+// LOGO
+#logo {
+    height: 3.25rem;
+}
+
+////////////////////////////////////////////////
+
+////////////////////////////////////////////////
+// USER NAVIGATION
+#user-nav {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+
+    & > * {
+        padding: 0 2rem;
+        cursor: pointer;
+    }
+
+    & > *:hover {
+        background-color: $color-grey-light-2;
+    }
+
+    &__icon-box {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    &__icon {
+        height: 2.25rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        width: 2.25rem;
+        fill: $color-grey-dark-2;
+    }
+
+    &__notification {
+        font-size: 0.8rem;
+        height: 1.75rem;
+        width: 1.75rem;
+        border-radius: 50%;
+        background-color: $color-primary;
+        color: white;
+        text-align: center;
+        position: absolute;
+        top: 1.5rem;
+        right: 1rem;
+    }
+
+    &__user-photo {
+        height: 3.75rem;
+        border-radius: 50%;
+    }
+}
+
+////////////////////////////////////////////////
+// SIDE NAVIGATION
+#side-nav {
+    font-size: 1.4rem;
+    list-style: none;
+    margin-top: 3.5rem;
+
+    &__item {
+        position: relative;
+
+        // ✅ 자주 사용되는 문법가운데 하나.
+        // __item 중에서 마지막 놈만 제외하고 적용하라는 뜻이다.
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    // ::befor 가상요소 적용. &__item 앞에 ::before라는 가상 요소가 생기고 이 요소에 적용된
+    // css가 사이드바 옆에 3px만큼 나타내주는 것이다. (아래 그림 참고)
+    &__item::before {
+        content: ""; // 필수 속성
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 3px;
+        background-color: $color-primary;
+        transform: scaleY(0);
+        // transition: property duration [function] [delay]
+        // transform은 0.2초, width는 0.4초 지속시간, 0.2초 딜레이를 가진다.
+        // 이는 먼저 세로축으로 쫙 펴춘다음 가로축으로 쫙 펴출려는 동작을 위해..
+        transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s;
+    }
+
+    &__item:hover::before {
+        transform: scaleY(1);
+        width: 100%;
+    }
+
+    // 링크 가상클래스
+    &__link:link,
+    &__link:visited {
+        color: $color-grey-light-1;
+        text-decoration: none; // 밑줄 제거
+        text-transform: uppercase;
+        // 🚨 a 태그는 기본적으로 inline이기 때문에 padding을 적용하려면 display를 block으로 해야한다.
+        // https://poiemaweb.com/css3-display#12-inline-%EB%A0%88%EB%B2%A8-%EC%9A%94%EC%86%8C
+        padding: 1.5rem 3rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 10;
+    }
+
+    &__icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        margin-right: 2rem;
+        fill: currentColor;
+    }
+}
+
+////////////////////////////////////////////////
+// LEGAL Text
+#legal {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 2.5rem;
+    color: $color-grey-light-4;
+}
+
+////////////////////////////////////////////////
+// mainpage
+#mainpage__write {
+    display: flex;
+}
+
+#mainpage__view {
+    display: flex;
+}

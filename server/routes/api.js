@@ -16,19 +16,22 @@ const router = express.Router();
 router.get("/workspaces", isLoggedIn, async (req, res, next) => {
   try {
     const workspaces = await Workspace.findAll({
-      include: [
-        {
-          model: User,
-          as: "Members",
-          attributes: ["id"],
-          through: {
-            where: { UserId: req.user.id },
-            attributes: ["UserId"],
-          },
-        },
-      ],
-    });
-    return res.json(workspaces);
+      where: { OwnerId: req.user.id },
+    })
+    // const workspaces = await Workspace.findAll({
+    //   include: [
+    //     {
+    //       model: User,
+    //       as: "Members",
+    //       attributes: ["id"],
+    //       through: {
+    //         where: { UserId: req.user.id },
+    //         attributes: ["UserId"],
+    //       },
+    //     },
+    //   ],
+    // });
+    return res.json(workspaces)
   } catch (error) {
     next(error);
   }
