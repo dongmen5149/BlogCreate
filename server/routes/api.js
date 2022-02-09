@@ -1,23 +1,33 @@
-const express = require("express");
-const passport = require("passport");
-const bcrypt = require("bcrypt");
-const multer = require("multer");
-const fs = require("fs");
-const path = require("path");
+const express = require('express');
+const passport = require('passport');
+const bcrypt = require('bcrypt');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
-const { sequelize } = require("../models");
-const { isNotLoggedIn, isLoggedIn } = require("./middlewares");
-const User = require("../models/user");
-const Workspace = require("../models/workspace");
-
+const { sequelize } = require('../models');
+const { isNotLoggedIn, isLoggedIn } = require('./middlewares');
+const User = require('../models/user');
+const Workspace = require('../models/workspace');
 
 const router = express.Router();
 
-router.get("/workspaces", isLoggedIn, async (req, res, next) => {
+router.get('/workspaces/count', isLoggedIn, async (req, res, next) => {
+  try {
+    const workspaces = await Workspace.count({
+      where: { OwnerId: req.user.id },
+    });
+    return res.json(workspaces);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/workspaces', isLoggedIn, async (req, res, next) => {
   try {
     const workspaces = await Workspace.findAll({
       where: { OwnerId: req.user.id },
-    })
+    });
     // const workspaces = await Workspace.findAll({
     //   include: [
     //     {
@@ -31,13 +41,13 @@ router.get("/workspaces", isLoggedIn, async (req, res, next) => {
     //     },
     //   ],
     // });
-    return res.json(workspaces)
+    return res.json(workspaces);
   } catch (error) {
     next(error);
   }
 });
 
-router.post("/workspaces", isLoggedIn, async (req, res, next) => {
+router.post('/workspaces', isLoggedIn, async (req, res, next) => {
   const t = await sequelize.transaction();
   try {
     const workspace = await Workspace.create(
@@ -48,7 +58,7 @@ router.post("/workspaces", isLoggedIn, async (req, res, next) => {
       },
       {
         transaction: t,
-      }
+      },
     );
     await t.commit();
     return res.json(workspace);
@@ -59,17 +69,17 @@ router.post("/workspaces", isLoggedIn, async (req, res, next) => {
 });
 
 try {
-  fs.readdirSync("uploads");
+  fs.readdirSync('uploads');
 } catch (error) {
-  console.error("uploads 폴더가 없어 uploads 폴더를 생성합니다.");
-  fs.mkdirSync("uploads");
+  console.error('uploads 폴더가 없어 uploads 폴더를 생성합니다.');
+  fs.mkdirSync('uploads');
 }
 
-router.get("/users", (req, res, next) => {
+router.get('/users', (req, res, next) => {
   return res.json(req.user || false);
 });
 
-router.post("/users", isNotLoggedIn, async (req, res, next) => {
+router.post('/users', isNotLoggedIn, async (req, res, next) => {
   try {
     const exUser = await User.findOne({
       where: {
@@ -77,7 +87,7 @@ router.post("/users", isNotLoggedIn, async (req, res, next) => {
       },
     });
     if (exUser) {
-      return res.status(403).send("이미 사용 중인 아이디입니다.");
+      return res.status(403).send('이미 사용 중인 아이디입니다.');
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
     const user = await User.create({
@@ -86,15 +96,15 @@ router.post("/users", isNotLoggedIn, async (req, res, next) => {
       password: hashedPassword,
     });
 
-    res.status(201).send("ok");
+    res.status(201).send('ok');
   } catch (error) {
     console.error(error);
     next(error); // status 500
   }
 });
 
-router.post("/users/login", isNotLoggedIn, (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+router.post('/users/login', isNotLoggedIn, (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
     if (err) {
       console.error(err);
       return next(err);
@@ -110,17 +120,17 @@ router.post("/users/login", isNotLoggedIn, (req, res, next) => {
       return res.status(200).json(
         await User.findOne({
           where: { id: user.id },
-          attributes: ["id", "nickname", "email"],
-        })
+          attributes: ['id', 'nickname', 'email'],
+        }),
       );
     });
   })(req, res, next);
 });
 
-router.post("/users/logout", isLoggedIn, (req, res) => {
+router.post('/users/logout', isLoggedIn, (req, res) => {
   req.logout();
   req.session.destroy();
-  res.send("ok");
+  res.send('ok');
 });
 
 module.exports = router;

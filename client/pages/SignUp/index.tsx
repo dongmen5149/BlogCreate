@@ -65,12 +65,12 @@ const SignUp = () => {
         return <div>로딩중...</div>;
     }
 
-    if (data) {
-        return <Navigate to="/workspace" />;
-    }
+    // if (data) {
+    //     return <Navigate to="/workspace" />;
+    // }
 
     return (
-        <div id="container">
+        <div id="container__login">
             <Header>HelloReview</Header>
             <Form onSubmit={onSubmit}>
                 <Label id="email-label">
