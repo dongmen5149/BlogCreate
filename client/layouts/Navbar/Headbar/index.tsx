@@ -35,9 +35,9 @@ const Headbar = () => {
     <div className="header_grid">
       <div className="acenter">
         {userData ? (
-          <h5>
+          <h4 id="writebtn">
             <Link to={'write'}>포스트작성</Link>
-          </h5>
+          </h4>
         ) : null}
       </div>
       <div className="acenter">
@@ -50,8 +50,10 @@ const Headbar = () => {
         </Link>
       </div>
 
-      <div className="acenter">
-        <a onClick={onLogout}>Logout</a>
+      <div className="acenter_logout">
+        <div id="logout" onClick={onLogout}>
+          Logout
+        </div>
       </div>
     </div>
   );

@@ -1,15 +1,8 @@
 import React from 'react';
-import { useCallback } from 'react';
-import axios from 'axios';
 import fetcher from '@utils/fetcher';
 import useSWR from 'swr';
 import { IUser } from '@typings/db';
-import { Navigate, Route, Routes } from 'react-router';
-
-import 'antd/dist/antd.css';
-import LeftMenu from '@layouts/Navbar/LeftMenu';
-import Write from '@pages/Write';
-import { LogoutOutlined, HomeOutlined } from '@ant-design/icons';
+import { Navigate } from 'react-router';
 import Headbar from '@layouts/Navbar/Headbar';
 import Main from '@layouts/Navbar/Main';
 

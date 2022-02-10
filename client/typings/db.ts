@@ -10,6 +10,7 @@ export interface IWorkspace {
   title: string;
   content: string;
   createdAt: string;
+  viewcnt: number;
 }
 
 export interface ISearchterm {

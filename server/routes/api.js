@@ -12,6 +12,22 @@ const Workspace = require('../models/workspace');
 
 const router = express.Router();
 
+// router.post('/api/workspaces/update/viewcnt', isLoggedIn, async (req, res, next) => {
+//   try {
+//     const viewcntplus = await Workspace.update(
+//       {
+//         viewcnt: viewcnt + 1,
+//       },
+//       {
+//         where: { id: req.params.id },
+//       },
+//     );
+//     return res.json(viewcntplus);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 router.get('/workspaces/view/:id', isLoggedIn, async (req, res, next) => {
   try {
     const view = await Workspace.findOne({

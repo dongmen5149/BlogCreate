@@ -5,7 +5,7 @@ import axios from 'axios';
 import HTMLReactParser from 'html-react-parser';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 
 const List = () => {
   const user = useSWR('/api/users', fetcher, {
@@ -59,8 +59,8 @@ const List = () => {
     <div className="List">
       <div className="list_tit">
         <div> 제목 </div>
-        <div> 조회수 </div>
-        <div className="acenter-date"> 날짜 </div>
+        <div></div>
+        <div className="acenter_date"> 날짜 </div>
       </div>
 
       {data
@@ -72,7 +72,7 @@ const List = () => {
                   <Link to={view_url}> {el.title}</Link>
                 </div>
                 <div> </div>
-                <div className="acenter-date"> {el.createdAt.slice(0, 10)} </div>
+                <div className="acenter_date"> {el.createdAt.slice(0, 10)} </div>
               </div>
             );
           })

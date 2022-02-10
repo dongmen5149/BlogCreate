@@ -3,7 +3,7 @@ import React from 'react';
 const RightMenu = () => {
   return (
     <div>
-      <div>Right Side</div>
+      <div></div>
     </div>
   );
 };

@@ -10,7 +10,7 @@ const Main = () => {
   return (
     <div className="Mains">
       <div id="Mains-left">
-        <h3> Left Side </h3>
+        <h3></h3>
       </div>
 
       <div>

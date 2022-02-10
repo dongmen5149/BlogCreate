@@ -10,3 +10,15 @@
 #Mains-right {
   border-left: solid 1px #aabbaa;
 }
+
+.header_grid {
+  display: grid;
+  grid-template-columns: 33% 33% auto;
+  border-bottom: solid 1px #ababab;
+  justify-content: center;
+  height: 100px;
+}
+
+.footer {
+  margin-top: 20px;
+}
