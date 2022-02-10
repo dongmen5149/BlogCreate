@@ -12,6 +12,17 @@ const Workspace = require('../models/workspace');
 
 const router = express.Router();
 
+router.get('/workspaces/view/:id', isLoggedIn, async (req, res, next) => {
+  try {
+    const view = await Workspace.findOne({
+      where: { id: req.params.id },
+    });
+    return res.json(view);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/workspaces/count', isLoggedIn, async (req, res, next) => {
   try {
     const workspaces = await Workspace.count({
@@ -28,19 +39,6 @@ router.get('/workspaces', isLoggedIn, async (req, res, next) => {
     const workspaces = await Workspace.findAll({
       where: { OwnerId: req.user.id },
     });
-    // const workspaces = await Workspace.findAll({
-    //   include: [
-    //     {
-    //       model: User,
-    //       as: "Members",
-    //       attributes: ["id"],
-    //       through: {
-    //         where: { UserId: req.user.id },
-    //         attributes: ["UserId"],
-    //       },
-    //     },
-    //   ],
-    // });
     return res.json(workspaces);
   } catch (error) {
     next(error);

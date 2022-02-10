@@ -1,5 +1,5 @@
 import LogIn from '@pages/Login';
-import View from '@pages/List';
+import View from '@pages/View';
 import Write from '@pages/Write';
 import React from 'react';
 import { Route, Routes } from 'react-router';

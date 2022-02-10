@@ -4,6 +4,7 @@ import fetcher from '@utils/fetcher';
 import axios from 'axios';
 import HTMLReactParser from 'html-react-parser';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 
 const List = () => {
@@ -51,25 +52,27 @@ const List = () => {
     });
   }, []);
 
-  if (data != undefined) {
-    console.log(page);
-  }
+  // if (data != undefined) {
+  // }
 
   return (
     <div className="List">
       <div className="list_tit">
         <div> 제목 </div>
         <div> 조회수 </div>
-        <div className="acenter"> 날짜 </div>
+        <div className="acenter-date"> 날짜 </div>
       </div>
 
       {data
         ? data.slice(offset, offset + limit).map((el, key) => {
+            const view_url = '/workspace/view/' + el.id;
             return (
               <div className="list_data" key={key}>
-                <div> {el.title} </div>
+                <div>
+                  <Link to={view_url}> {el.title}</Link>
+                </div>
                 <div> </div>
-                <div className="acenter"> {el.createdAt.slice(0, 10)} </div>
+                <div className="acenter-date"> {el.createdAt.slice(0, 10)} </div>
               </div>
             );
           })

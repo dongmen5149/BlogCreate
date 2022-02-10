@@ -6,6 +6,7 @@ export interface IUser {
 }
 
 export interface IWorkspace {
+  id: number;
   title: string;
   content: string;
   createdAt: string;

@@ -106,14 +106,20 @@
   border-bottom: solid 1px #ababab;
   color: #ababab;
   padding-bottom: 10px;
+  text-align: left;
 }
 
 .list_data {
+  text-align: left;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 70% 15% 15%;
       grid-template-columns: 70% 15% 15%;
   line-height: 40px;
+}
+
+.acenter-date {
+  text-align: center;
 }
 
 .acenter {
@@ -153,6 +159,25 @@
   position: absolute;
   margin-top: 14px;
   cursor: pointer;
+}
+
+.date_div {
+  text-align: right;
+  font-size: 14px;
+  color: #ababab;
+  margin-bottom: 10px;
+  padding-right: 10px;
+  border-bottom: solid 1px #ababab;
+}
+
+.top_title {
+  border: none;
+  padding-bottom: 0px;
+}
+
+#title_txt {
+  border: none;
+  padding-bottom: 0px;
 }
 
 * {
