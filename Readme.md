@@ -23,3 +23,4 @@ cd server, npm run dev
 cd client, npm run dev
 
 # Preview
+![Brog만들기 압축](https://user-images.githubusercontent.com/78216411/153556172-47ac60ed-2feb-4edd-a748-71e67862315f.gif)
