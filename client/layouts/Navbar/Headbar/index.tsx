@@ -46,7 +46,7 @@ const Headbar = () => {
         </Routes>
 
         <Link className="link_tit" to="/">
-          <h1> Ryu's Blog </h1>
+          <h1> {userData && userData.nickname}'s Blog </h1>
         </Link>
       </div>
 

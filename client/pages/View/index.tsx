@@ -15,35 +15,35 @@ const View = () => {
     });
   }, []);
 
-  useEffect(() => {
-    axios
-      .post(
-        '/api/workspaces/update/viewcnt',
-        {},
-        {
-          withCredentials: true,
-        },
-      )
-      .then((response) => {
-        mutate(response.data, false);
-      })
-      .catch((error) => {
-        console.dir(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post(
+  //       '/api/workspaces/update/viewcnt',
+  //       {},
+  //       {
+  //         withCredentials: true,
+  //       },
+  //     )
+  //     .then((response) => {
+  //       mutate(response.data, false);
+  //     })
+  //     .catch((error) => {
+  //       console.dir(error);
+  //     });
+  // }, []);
 
   console.log(viewData);
 
   return (
     <div className="write">
       {viewData ? (
-        <div>
+        <div className="view_div">
           <div className="top_title">
-            <input type="text" id="view_title_txt" name="title" defaultValue={viewData.title} readOnly />
+            <input type="text" id="title_txt" name="title" defaultValue={viewData.title} readOnly />
           </div>
           <div className="date_div">{viewData.createdAt}</div>
           <div>
-            <textarea id="view_content_txt" name="contents" defaultValue={viewData.content} readOnly></textarea>
+            <textarea id="content_txt" name="contents" defaultValue={viewData.content} readOnly></textarea>
           </div>
         </div>
       ) : null}
